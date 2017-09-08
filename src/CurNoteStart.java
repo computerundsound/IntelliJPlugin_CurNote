@@ -1,0 +1,68 @@
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.IOException;
+
+public class CurNoteStart extends AnAction {
+
+    private static String curNoteFileName = ".curNote.txt";
+    private Project project;
+
+    @Override
+    public void actionPerformed(AnActionEvent event) {
+
+        String message;
+        VirtualFile fileV;
+
+        project = event.getData(PlatformDataKeys.PROJECT);
+
+
+        fileV = buildVirtualFile();
+
+        message = fileV != null ? "OK" : "ERROR";
+
+        assert fileV != null;
+        FileEditorManager.getInstance(project).openFile(fileV, true);
+
+    }
+
+
+    @NotNull
+    private String getFilePath() {
+        return this.project.getBasePath() + File.separator + Project.DIRECTORY_STORE_FOLDER + File.separator + CurNoteStart.curNoteFileName;
+    }
+
+    private VirtualFile buildVirtualFile() {
+
+        Boolean success;
+        String filePath = getFilePath();
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            try {
+                success = file.createNewFile();
+            } catch (IOException e) {
+                success = false;
+            }
+        } else {
+            success = true;
+        }
+
+        VirtualFile fileVirtual = LocalFileSystem.getInstance().findFileByPath(file.getAbsolutePath());
+
+        if (fileVirtual == null) {
+            Messages.showMessageDialog(project, "Virtual File = null", "Information", Messages.getInformationIcon());
+        }
+
+        return fileVirtual;
+    }
+
+}
