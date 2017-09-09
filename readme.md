@@ -7,7 +7,14 @@ This is a Plugin for all intellj-based IDEs.
 
 ## What can I do with this ?
 
-With this plugin, you can save some notice to your project on an very easy way.
+With this plugin, you can save some notes to your project on an very easy way.
+
+The notes will be stored in .idea folder - so normally they will not be 
+tracked by a version system (like git), if you exclude your .idea -folder from git.
+
+If you **want** to be your notes to be tracked by git, you can add this line into your .gitignore file:
+
+!.idea/.curNotes.txt
 
 Jörg Wrase
 
