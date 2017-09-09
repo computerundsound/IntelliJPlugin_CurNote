@@ -11,6 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class CurNotesStart extends AnAction {
 
     private static String curNotesFileName = ".curNotes.txt";
@@ -19,7 +22,6 @@ public class CurNotesStart extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent event) {
 
-        String message;
         VirtualFile fileV;
 
         project = event.getData(PlatformDataKeys.PROJECT);
@@ -32,16 +34,23 @@ public class CurNotesStart extends AnAction {
 
     }
 
+    /**
+     * @return String
+     */
     @NotNull
     private String getFilePath() {
         return this.project.getBasePath() + File.separator + Project.DIRECTORY_STORE_FOLDER + File.separator + CurNotesStart.curNotesFileName;
     }
 
+    /**
+     * @return VirtualFile
+     */
     private VirtualFile buildVirtualFile() {
 
-        Boolean success;
+        Boolean success = true;
         String filePath = getFilePath();
         File file = new File(filePath);
+        VirtualFile fileVirtual = null;
 
         if (!file.exists()) {
             try {
@@ -49,13 +58,13 @@ public class CurNotesStart extends AnAction {
             } catch (IOException e) {
                 success = false;
             }
-        } else {
-            success = true;
         }
 
-        VirtualFile fileVirtual = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(file);
+        if (success) {
+            fileVirtual = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(file);
+        }
 
-        String errorMessage = "There is an Error. Virtual file could not created. Please try again.";
+        String errorMessage = "An error has occurred. The VirtualFile could not be created. Please try again.";
 
         if (fileVirtual == null) {
             Messages.showMessageDialog(project, errorMessage, "Error", Messages.getErrorIcon());
