@@ -24,13 +24,11 @@ public class CurNoteStart extends AnAction {
 
         project = event.getData(PlatformDataKeys.PROJECT);
 
-
         fileV = buildVirtualFile();
 
-        message = fileV != null ? "OK" : "ERROR";
-
-        assert fileV != null;
-        FileEditorManager.getInstance(project).openFile(fileV, true);
+        if (fileV != null) {
+            FileEditorManager.getInstance(project).openFile(fileV, false);
+        }
 
     }
 
@@ -58,8 +56,11 @@ public class CurNoteStart extends AnAction {
 
         VirtualFile fileVirtual = LocalFileSystem.getInstance().findFileByPath(file.getAbsolutePath());
 
+        String errorMessage = "There is an Error. Virtual file could not created. Restart IDE and try again." +
+                "The file can't be created at the first time - this is a known bug, I'm working on it";
+
         if (fileVirtual == null) {
-            Messages.showMessageDialog(project, "Virtual File = null", "Information", Messages.getInformationIcon());
+            Messages.showMessageDialog(project, errorMessage, "Error", Messages.getErrorIcon());
         }
 
         return fileVirtual;
