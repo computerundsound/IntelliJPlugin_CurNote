@@ -32,7 +32,6 @@ public class CurNotesStart extends AnAction {
 
     }
 
-
     @NotNull
     private String getFilePath() {
         return this.project.getBasePath() + File.separator + Project.DIRECTORY_STORE_FOLDER + File.separator + CurNotesStart.curNotesFileName;
@@ -54,10 +53,9 @@ public class CurNotesStart extends AnAction {
             success = true;
         }
 
-        VirtualFile fileVirtual = LocalFileSystem.getInstance().findFileByPath(file.getAbsolutePath());
+        VirtualFile fileVirtual = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(file);
 
-        String errorMessage = "There is an Error. Virtual file could not created. Restart IDE and try again." +
-                "The file can't be created at the first time - this is a known bug, I'm working on it";
+        String errorMessage = "There is an Error. Virtual file could not created. Please try again.";
 
         if (fileVirtual == null) {
             Messages.showMessageDialog(project, errorMessage, "Error", Messages.getErrorIcon());
