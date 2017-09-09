@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>de.cusp.cu.curNote</id>
-    <name>CurNote</name>
+    <id>de.cusp.cu.curNotes</id>
+    <name>CurNotes</name>
     <version>0.9</version>
     <vendor email="dev@cusp.de" url="https://www.cusp.de">cusp - computer-und-sound</vendor>
 
@@ -25,7 +25,7 @@ You can save notes
 
     <actions>
         <!-- Add your actions here -->
-        <action id="curnotestart" class="CurNoteStart" text="CurNoteStart" description="CurNote Start">
+        <action id="curnotesstart" class="CurNotesStart" text="CurNotesStart" description="CurNotes Start">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>

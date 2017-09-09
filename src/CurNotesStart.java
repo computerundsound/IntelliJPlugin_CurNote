@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 
-public class CurNoteStart extends AnAction {
+public class CurNotesStart extends AnAction {
 
-    private static String curNoteFileName = ".curNote.txt";
+    private static String curNotesFileName = ".curNotes.txt";
     private Project project;
 
     @Override
@@ -35,7 +35,7 @@ public class CurNoteStart extends AnAction {
 
     @NotNull
     private String getFilePath() {
-        return this.project.getBasePath() + File.separator + Project.DIRECTORY_STORE_FOLDER + File.separator + CurNoteStart.curNoteFileName;
+        return this.project.getBasePath() + File.separator + Project.DIRECTORY_STORE_FOLDER + File.separator + CurNotesStart.curNotesFileName;
     }
 
     private VirtualFile buildVirtualFile() {
